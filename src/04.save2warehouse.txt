@@ -1,0 +1,15 @@
+# init tic folders
+tic=.. 
+
+~cellgeni-su/bin/tick.sh -k $tic -c misc -t 0 -j pm19@sanger.ac.uk
+cd /lustre/scratch117/cellgen/cellgeni/TIC-misc/tic-$tic
+mkdir ref pred figures
+cp -r /nfs/cellgeni/pasham/rcode/c2l/src/* actions/
+ln -s /lustre/scratch117/cellgen/cellgeni/TIC-misc/tic-$tic /nfs/cellgeni/pasham/projects/2202.c2l.service/lustre/tic-$tic
+
+# copy results ro warehouse
+# copy to wh (from ticket folder)
+tic=`pwd | grep -o '[^/]*$'`
+cp -r pred /warehouse/cellgeni/$tic/
+cp -r ref /warehouse/cellgeni/$tic/
+cp -r figures /warehouse/cellgeni/$tic/
