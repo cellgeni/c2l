@@ -16,7 +16,7 @@ export PYTORCH_KERNEL_CACHE_PATH=/lustre/scratch117/cellgen/cellgeni/pasham/tmp/
 # edit here
 # cd /lustre/scratch117/cellgen/cellgeni/TIC-misc/tic-....
 
-refs=(ref.filtered)
+refs=(ref)
 alphas=(20 200)
 
 c2lpred=./actions/py/02.predict.cell.abundancies.py

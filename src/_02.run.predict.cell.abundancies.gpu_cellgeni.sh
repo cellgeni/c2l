@@ -18,11 +18,10 @@ export PYTORCH_KERNEL_CACHE_PATH=/lustre/scratch117/cellgen/cellgeni/pasham/tmp/
 nvidia-smi
 
 # edit here
-refs=(all_normal-CG.v2.celltypes all_normal-CG.v2.subcelltypes bcc_and_normal-CG.v2.celltypes bcc_and_normal-CG.v2.subcelltypes)
+refs=(ref)
 alphas=(20 200)
-
-cd /lustre/scratch117/cellgen/cellgeni/pasham/data/2202.c2l.service/2204.clarisse/v02/
-c2lpred=/nfs/cellgeni/pasham/projects/2202.c2l.service/src/2204.clarisse/v02/c2l/py/02.predict.cell.abundancies.py
+cd .....
+c2lpred=...../py/02.predict.cell.abundancies.py
 
 
 i=$(($LSB_JOBINDEX-1))
