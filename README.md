@@ -12,3 +12,15 @@ Second step needs results of the first step and h5ad with all visium samples com
 Two steps are independent and have to be submited to farm one by one using srs/01 and src/02 bash scripts. Usually input data are not well formated, so some preparation is needed. In this case src/check-n-prepare.input.h5ad.ipynb can be used.
 
 Some QCs can be plotted by src/03.plot.c2l.R.
+
+# Details
+## Initialization
+Set tic variable to ticket number and init:
+```
+tic=.. 
+~cellgeni-su/bin/tick.sh -k $tic -c misc -t 0 -j pm19@sanger.ac.uk -y https://github.com/cellgeni/c2l
+cd /lustre/scratch117/cellgen/cellgeni/TIC-misc/tic-$tic
+mkdir ref pred figures
+```
+
+
