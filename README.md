@@ -1,7 +1,7 @@
 # c2l
 Set of scripts to run cell2location on farm
 
-# Usage
+# Overview
 There are two steps:
 1. Cell type signature estimation
 2. Visium deconvolution
@@ -13,12 +13,13 @@ Two steps are independent and have to be submited to farm one by one using srs/0
 
 Some QCs can be plotted by src/03.plot.c2l.R.
 
-# Details
-The pipeline is designed to be run on one or more references and single set of visiums. So prepared input consists of one or more reference h5ad and one visium h5ad files.
-## Preparation
+# Prerequisites
 For now the pipeline uses conda to run cell2location. Enviroment name is hardcoded in bsub scripts (see `source activate` statements). 
 Second step of cell2location can use a lot  of GPU memory, most likely it will not fit into gpu-normal if number of visium samples is above 15-20 (more then 20k spots). In this case `gpu-cellgeni-a100` queue can be used (see `_02.run.predict.cell.abundancies.gpu_cellgeni.sh`).
 Use `actions/c2l/src/create.env.sh` to create conda enviroment.
+
+# Details
+The pipeline is designed to be run on one or more references and single set of visiums. So prepared input consists of one or more reference h5ad and one visium h5ad files.
 
 ## Initialization
 Set tic variable to ticket number and init:
