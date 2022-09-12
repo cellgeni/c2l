@@ -1,12 +1,12 @@
 #! /bin/bash
 #BSUB -G cellgeni
-#BSUB -J c2l.pred[2-8]
+#BSUB -J c2l.pred[1-2]
 #BSUB -o %J.%I.c2l.pred.log
 #BSUB -e %J.%I.c2l.pred.err
 #BSUB -n 2
 #BSUB -M64000
 #BSUB -R "span[hosts=1] select[mem>64000] rusage[mem=64000]"
-#BSUB -q gpu-cellgeni
+#BSUB -q gpu-cellgeni-a100
 #BSUB -m dgx-b11
 #BSUB -gpu "mode=shared:j_exclusive=no:gmem=62000:num=1"
 
@@ -17,11 +17,13 @@ export PYTORCH_KERNEL_CACHE_PATH=/lustre/scratch117/cellgen/cellgeni/pasham/tmp/
 
 nvidia-smi
 
+
+c2lpred=actions/c2l/src/py/02.predict.cell.abundancies.py
+
 # edit here
 refs=(ref)
 alphas=(20 200)
-cd .....
-c2lpred=...../py/02.predict.cell.abundancies.py
+
 
 
 i=$(($LSB_JOBINDEX-1))

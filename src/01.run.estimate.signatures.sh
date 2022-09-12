@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash -e
 #BSUB -G cellgeni
 #BSUB -J c2l.ref[1]
 #BSUB -o %J.%I.c2l.ref.log
@@ -12,17 +12,17 @@
 source activate c2l220518
 export PYTORCH_KERNEL_CACHE_PATH=/lustre/scratch117/cellgen/cellgeni/pasham/tmp/pytorch_cache
 
-#cd /lustre/scratch117/cellgen/cellgeni/TIC-misc/tic-....
 
-c2lref=./actions/py/01.estimate.signatures.py
+c2lref=actions/c2l/src/py/01.estimate.signatures.py
 
-# edit here
+# edit below
+# use --categorical_covariate_key to specify covariates
 ref=(ref)
 
+
 $c2lref \
- --batch_key .... \
- --categorical_covariate_key .... \
- ${ref[$LSB_JOBINDEX-1]}.h5ad \
- ref/${ref[$LSB_JOBINDEX-1]} \
- ....
+ --batch_key batch \ # column in adata.obs with 10x sample identifier
+ ${ref[$LSB_JOBINDEX-1]}.h5ad \ # path to reference h5ad
+ ref/${ref[$LSB_JOBINDEX-1]} \ # out dir
+ "cell type" # column in adata.obs with cell annotation
  
