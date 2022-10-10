@@ -7,12 +7,12 @@
 #BSUB -M64000
 #BSUB -R "span[hosts=1] select[mem>64000] rusage[mem=64000]"
 
-# comment these to use on gpu-cellgeni-a1
+# comment these to use on gpu-cellgeni-a100
 #BSUB -q gpu-normal
 #BSUB -gpu "mode=shared:j_exclusive=yes:gmem=32000:num=1"
 
-# uncomment these to use on gpu-cellgeni-a1
-##BSUB -q gpu-cellgeni-a1
+# uncomment these to use on gpu-cellgeni-a100
+##BSUB -q gpu-cellgeni-a100
 ##BSUB -m dgx-b11
 ##BSUB -gpu "mode=shared:j_exclusive=no:gmem=62000:num=1"
 
