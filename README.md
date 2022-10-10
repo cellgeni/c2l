@@ -15,7 +15,7 @@ Some QCs can be plotted by src/03.plot.c2l.R.
 
 # Prerequisites
 For now the pipeline uses conda to run cell2location. Enviroment name is hardcoded in bsub scripts (see `source activate` statements). 
-Second step of cell2location can use a lot  of GPU memory, most likely it will not fit into gpu-normal if number of visium samples is above 15-20 (more then 20k spots). In this case `gpu-cellgeni-a100` queue can be used (see `_02.run.predict.cell.abundancies.gpu_cellgeni.sh`).
+Second step of cell2location can use a lot  of GPU memory, most likely it will not fit into gpu-normal if number of visium samples is above 15-20 (more then 20k spots). In this case `gpu-cellgeni-a100` queue can be used (comment/uncomment corresponding lines in `02.run.predict.cell.abundancies.sh`).
 Use `actions/c2l/src/create.env.sh` to create conda enviroment.
 
 # Details
