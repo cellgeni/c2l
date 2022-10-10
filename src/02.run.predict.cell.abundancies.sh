@@ -21,7 +21,7 @@ nvidia-smi
 # uncomment these to use on gpu-cellgeni-a1
 source activate c2l220518
 # uncomment these to use on gpu-cellgeni-a1
-#source activate test_pyro_cuda116
+#source activate test_pyro_cuda111_a100
 
 export PYTORCH_KERNEL_CACHE_PATH=/lustre/scratch117/cellgen/cellgeni/pasham/tmp/pytorch_cache
 
