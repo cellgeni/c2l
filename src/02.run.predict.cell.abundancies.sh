@@ -36,9 +36,10 @@ alphas=(20 200)
 i=$(($LSB_JOBINDEX-1))
 
 alp=${alphas[$((i / ${#refs[@]}))]}
+ref=${refs[$((i % ${#refs[@]}))]}
 
 # script expects reference signaatures to be stored in ref subfolder, but paths can be specified directly here
-REF=ref/${refs[$((i % ${#refs[@]}))]}/rsignatures/inf_aver.csv
+REF=ref/${ref}/rsignatures/inf_aver.csv
 OUT=pred/${ref}.${alp}
 VISIN=viss.h5ad # path to combined visum h5ad
 
