@@ -14,7 +14,7 @@ export PYTORCH_KERNEL_CACHE_PATH=/lustre/scratch117/cellgen/cellgeni/pasham/tmp/
 
 #cd /lustre/scratch117/cellgen/cellgeni/TIC-misc/tic-....
 
-c2lref=./actions/py/01.estimate.signatures.py
+c2lref=./actions/c2l/src/py/01.estimate.signatures.py
 
 # edit below
 # script expects all ref h5ads to be in working directory. It will submit array job (edit -J bsub option above), one instance per ref h5ad

@@ -27,7 +27,7 @@ export PYTORCH_KERNEL_CACHE_PATH=/lustre/scratch117/cellgen/cellgeni/pasham/tmp/
 
 #cd /lustre/scratch117/cellgen/cellgeni/TIC-misc/tic-....
 
-c2lpred=./actions/py/02.predict.cell.abundancies.py
+c2lpred=./actions/c2l/src/py/02.predict.cell.abundancies.py
 
 # edit here
 # by default script will submit array job (edit -J bsub option above) for all combinations of refs and alphas specified below
