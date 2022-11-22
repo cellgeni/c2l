@@ -14,6 +14,7 @@ parser.add_argument("--cell_count_cutoff", type=int,default=5,help='Gene filteri
 parser.add_argument("--cell_percentage_cutoff2", type=float,default=0.03,help='Gene filtering parameter: All genes detected in at least this percentage of cells will be included.')
 parser.add_argument("--nonz_mean_cutoff", type=float,default=1.12,help='Gene filtering parameter: genes detected in the number of cells between the above mentioned cutoffs are selected only when their average expression in non-zero cells is above this cutoff.')
 parser.add_argument("--max_epochs", type=int,default=250,help='max_epochs for training')
+parser.add_argument("--remove_genes_column", type=str,default=None,help='logical column in adata.var to be used to remove genes, for example mitochonrial. All genes with True in the column will be removed. None (defualt) mean to remove nothing.')
 
 args = parser.parse_args()
 
@@ -62,10 +63,14 @@ if args.gene_id is not None:
 # intersect = np.intersect1d(ref.var.index, genes['ENSEMBL'])
 # ref = ref[:, intersect].copy()
 
-# filter MT. normally it should be done upstream (because it depends on gene naming), so not implemented here
-# a = [not(gene.startswith('MT-')) for gene in ref.var['GeneName']]
-# ref = ref[:,a]
+# filter genes
+if args.remove_genes_column != None:
+  print('Remove genes by "'+args.remove_genes_column+'". Following genes were removed:')
+  print(ref.var[ref.var[args.remove_genes_column]])
+  ref = ref[:,~ref.var[args.remove_genes_column]]
 
+
+# filter genes 
 selected = filter_genes(ref,
                         cell_count_cutoff=args.cell_count_cutoff,
                         cell_percentage_cutoff2=args.cell_percentage_cutoff2,
@@ -104,7 +109,7 @@ ref = mod.export_posterior(
 )
 mod.save(args.output+"/rsignatures", overwrite=True)
 # most likely I do not need this file
-# ref.write(args.output+"/rsignatures/sc.h5ad")
+ref.write(args.output+"/rsignatures/sc.h5ad")
 
 # save signatures
 inf_aver = ref.varm['means_per_cluster_mu_fg'][[f'means_per_cluster_mu_fg_{i}' for i in ref.uns['mod']['factor_names']]].copy()
@@ -112,7 +117,7 @@ inf_aver.columns = ref.uns['mod']['factor_names']
 inf_aver.to_csv(args.output+'/rsignatures/inf_aver.csv')
 
 
-# i didn't manage to plot QC....
+# function to plot QCs into file
 def plot_QC1(m,plot,summary_name: str = "means",use_n_obs: int = 1000):
   if use_n_obs is not None:
     ind_x = np.random.choice(m.adata_manager.adata.n_obs, np.min((use_n_obs, m.adata.n_obs)), replace=False)
