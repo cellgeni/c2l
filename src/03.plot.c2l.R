@@ -34,7 +34,7 @@ c2ls[[1]][[1]][1:4,]
 vsf = list()
 for(n in names(vs)){
   print(n)
-  vs[[n]]@images$slice1@image = enhanceImage(vs[[n]]@images$slice1@image,pow=1,qs = c(0.02,0.98))
+  vs[[n]]@images$slice1@image = enhanceImage(vs[[n]]@images$slice1@image,qs = c(0.02,0.98))
   vsf[[n]] = vs[[n]][,rownames(c2ls[[1]][[n]])]
 }
 sapply(c2ls[[1]],dim)
