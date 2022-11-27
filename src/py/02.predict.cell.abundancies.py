@@ -4,10 +4,10 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Predict cell abundancies')
 parser.add_argument("visium", type=str,default=None,help='visium h5ad file')
-parser.add_argument("ref", type=str,default=None,help='reference signatures in csv dormat')
+parser.add_argument("ref", type=str,default=None,help='reference signatures in csv format')
 parser.add_argument("output", type=str,default=None,help='folder to write output')
 parser.add_argument("--batch_key", type=str,default=None,help='column in adata.obs to be used as bacth')
-parser.add_argument("--detection_alpha", type=int,default=None,help='value of alpha parameter')
+parser.add_argument("--detection_alpha", type=float,default=None,help='value of alpha parameter')
 parser.add_argument("--N_cells_per_location", type=int,default=None,help='value of alpha parameter')
 parser.add_argument("--max_epochs", type=int,default=50000,help='number of epochs')
 parser.add_argument("--batch_size", type=int,default=None,help='number of train batches (use with caution, non None values slows training and may produce weird results)')
