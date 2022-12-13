@@ -23,6 +23,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
+import torch
 import cell2location
 from cell2location.utils.filtering import filter_genes
 from cell2location.models import RegressionModel
@@ -35,6 +36,7 @@ args = parser.parse_args()
 os.mkdir(args.output)
 sys.stdout = open(args.output+"/c2l.pred.log", "w")
 print(args)
+print("cuda avaliable: "+str(torch.cuda.is_available()))
 
 vis = sc.read(args.visium)
 inf_aver = pd.read_csv(args.ref,index_col=0)
@@ -87,10 +89,10 @@ fig.savefig(args.output+'/train.history.pdf')
 mod.save(args.output+"/predmodel", overwrite=True)
 # most likely I do not need it. 
 # plus it can fail because of unallowed celltype names (slashes)
-#try:
-#    vis.write(args.output+"/predmodel/sp.h5ad")
-#except Exception as e:
-#    print(e)
+try:
+    vis.write(args.output+"/predmodel/sp.h5ad")
+except Exception as e:
+    print(e)
 
 
 for k in  vis.obsm_keys():
@@ -100,24 +102,7 @@ for k in  vis.obsm_keys():
 mod.plot_QC()
 plt.savefig(args.output+'/predict.QC.pdf')
 
-
-# session information
-# for module in sys.modules:
-#     try:
-#         print(module,sys.modules[module].__version__)
-#     except:
-#         try:
-#             if  type(modules[module].version) is str:
-#                 print(module,sys.modules[module].version)
-#             else:
-#                 print(module,sys.modules[module].version())
-#         except:
-#             try:
-#                 print(module,sys.modules[module].VERSION)
-#             except:
-#                 pass
 cell2location.utils.list_imported_modules()
-
 sys.stdout.close()
 
 

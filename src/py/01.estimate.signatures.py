@@ -32,6 +32,7 @@ import cell2location
 from cell2location.utils.filtering import filter_genes
 from cell2location.models import RegressionModel
 
+import torch
 import scvi
 from scvi import REGISTRY_KEYS
 
@@ -42,26 +43,20 @@ os.mkdir(args.output)
 
 sys.stdout = open(args.output+"/c2l.ref.log", "w")
 print(args)
+print("cuda avaliable: "+str(torch.cuda.is_available()))
 
 # read data
 ref = sc.read(args.infile)
 
-# to treat NaN, should be controlled by command line parameter
-# ref.obs['Sample.lanes'] = ref.obs['Sample.lanes'].cat.add_categories("NaN").fillna("NaN")
-# or remove NaN
-# ref = ref[~ref.obs[labels_key].isna(),:]
 
-print('There are ' + str(np.sum([gene.startswith('MT-') for gene in ref.var.index])) + 'MT genes! Consider to remove them!')
+mtcnt = np.sum([gene.startswith('MT-') for gene in ref.var.index])
+if mtcnt > 0:
+    print('There are ' + str(mtcnt) + 'MT genes! Consider to remove them!')
 
 if args.gene_id is not None:
   ref.var[args.gene_id] = ref.var[args.gene_id].astype('string')
   ref.var=ref.var.set_index(args.gene_id)
   print('Raw: cells = '+str(ref.shape[0])+"; genes = " + str(ref.shape[1]))
-
-# Filter genes by external list (to be implemented)
-# genes = pd.read_csv(genescsv)
-# intersect = np.intersect1d(ref.var.index, genes['ENSEMBL'])
-# ref = ref[:, intersect].copy()
 
 # filter genes
 if args.remove_genes_column != None:
@@ -167,20 +162,5 @@ except Exception as e:
 plt.tight_layout()
 plt.savefig(args.output+'/train.QC.pdf')
 
-# session information
-# for module in sys.modules:
-#     try:
-#         print(module,sys.modules[module].__version__)
-#     except:
-#         try:
-#             if  type(modules[module].version) is str:
-#                 print(module,sys.modules[module].version)
-#             else:
-#                 print(module,sys.modules[module].version())
-#         except:
-#             try:
-#                 print(module,sys.modules[module].VERSION)
-#             except:
-#                 pass
 cell2location.utils.list_imported_modules()
 sys.stdout.close()
