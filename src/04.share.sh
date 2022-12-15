@@ -11,7 +11,7 @@ cp -r figures /warehouse/cellgeni/$tic/
 echo "data were copied to /warehouse/cellgeni/$tic"
 echo "==========================="
 
-echo "Hi @$name,"
+echo "Hi [~@$name],"
 echo "The analysis is finished, you can find results here: /warehouse/cellgeni/$tic, predictions are in pred subfolder. Several variants of prediction are available, they are combinations of following factors:"
 echo "1) detection alpha 20 or 200"
 echo "2) all celltypes or only celltypes with number of cells above 20 (filtered)"
