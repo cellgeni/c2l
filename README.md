@@ -14,9 +14,8 @@ Two steps are independent and have to be submited to farm one by one using srs/0
 Some QCs can be plotted by src/03.plot.c2l.R.
 
 # Prerequisites
-For now the pipeline uses conda to run cell2location. Enviroment name is hardcoded in bsub scripts (see `source activate` statements). 
+The pipeline uses singularity to run cell2location. Path to the image is  hardcoded in bsub scripts. 
 Second step of cell2location can use a lot  of GPU memory, most likely it will not fit into gpu-normal if number of visium samples is above 15-20 (more then 20k spots). In this case `gpu-cellgeni-a100` queue can be used (comment/uncomment corresponding lines in `02.run.predict.cell.abundancies.sh`).
-Use `actions/c2l/src/create.env.sh` to create conda enviroment.
 
 # Details
 The pipeline is designed to be run on one or more references and single set of visiums. So prepared input consists of one or more reference h5ad and one visium h5ad files.

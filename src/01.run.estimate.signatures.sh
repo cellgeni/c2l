@@ -16,8 +16,16 @@
 ##BSUB -m dgx-b11
 ##BSUB -gpu "mode=shared:j_exclusive=no:gmem=62000:num=1"
 
+# uncomment (and edit paths) if you run it not as cellgeni-su
+#export SINGULARITY_CACHEDIR=/nfs/cellgeni/pasham/singularity/cache
+#export SINGULARITY_PULLFOLDER=/nfs/cellgeni/pasham/singularity
+#export SINGULARITY_TMPDIR=/nfs/cellgeni/pasham/singularity/tmp
+#export PATH=/software/singularity-v3.6.4/bin:$PATH
+
+
+
 WDIR=`pwd -P`
-IMAGE=/nfs/cellgeni/singularity/images/c2l.jhub.221206.v0.1.sif
+IMAGE=/nfs/cellgeni/singularity/images/c2l.jhub.221206.v0.1.sif # based on commit 36e4f007e8fba4cb85c13b9bff47a4f6fbae9295
 c2lref=./actions/c2l/src/py/01.estimate.signatures.py
 
 # edit below
