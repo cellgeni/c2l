@@ -18,8 +18,8 @@ c2ls = lapply(c2lnames, function(a){
   #rownames(r) = gsub('spaceranger130_count_39274_|_GRCh38-2020-A','',rownames(r))
   colnames(r) = sub('q05cell_abundance_w_sf_','',colnames(r))
   m = do.call(rbind,strsplit(rownames(r),'|',T))
-  r$barcode = m[,1]
-  r = split(r,m[,2])
+  r$barcode = m[,2]
+  r = split(r,m[,1])
   #r = split(r,substr(rownames(r),20,10000))
   for(i in 1:length(r)){
     rownames(r[[i]]) = r[[i]]$barcode
