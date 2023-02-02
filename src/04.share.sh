@@ -4,9 +4,9 @@
 tic=`pwd | grep -o '[^/]*$'`
 name=`cut -f2 actions/SUBMITTER`
 
-cp -r pred /warehouse/cellgeni/$tic/
-cp -r ref /warehouse/cellgeni/$tic/
-cp -r figures /warehouse/cellgeni/$tic/
+rsync -auR --progress pred /warehouse/cellgeni/$tic/
+rsync -auR --progress ref /warehouse/cellgeni/$tic/
+rsync -auR --progress figures /warehouse/cellgeni/$tic/
 
 echo "data were copied to /warehouse/cellgeni/$tic"
 echo "==========================="
