@@ -1,0 +1,4 @@
+src/_01.run.estimate.signatures.sh
+src/_02.run.predict.cell.abundancies.gpu_cellgeni.sh
+src/_02.run.predict.cell.abundancies.sh
+
