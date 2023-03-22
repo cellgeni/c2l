@@ -1,4 +1,4 @@
-!/bin/bash -e
+#!/bin/bash -e
 
 while read -r line; do
 	name=`basename $line`
@@ -11,5 +11,6 @@ while read -r line; do
 	iget -r $line/filtered_feature_bc_matrix
 	iget -r $line/filtered_feature_bc_matrix.h5
 	iget -r $line/raw_feature_bc_matrix.h5
+	iget -r $line/metrics_summary.csv
 	cd ..
 done
