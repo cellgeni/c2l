@@ -1,6 +1,5 @@
 library(Seurat)
 library(visutils)
-source('/nfs/cellgeni/pasham/rcode/misc.util.R')
 
 setwd(dirname(dirname(dirname(dirname(rstudioapi::getSourceEditorContext()$path)))))
 getwd()

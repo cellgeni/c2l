@@ -24,8 +24,8 @@ The pipeline is designed to be run on one or more references and single set of v
 Set tic variable to ticket number and init:
 ```
 tic=.. 
-~cellgeni-su/bin/tick.sh -k $tic -c misc -t 0 -j pm19@sanger.ac.uk -y https://github.com/cellgeni/c2l
-cd /lustre/scratch117/cellgen/cellgeni/TIC-misc/tic-$tic
+tick.sh -k $tic -j pm19@sanger.ac.uk -y https://github.com/cellgeni/c2l
+cd /lustre/scratch127/cellgen/cellgeni/tickets/tic-$tic
 mkdir ref pred figures
 ```
 ## Check and prepare the input
