@@ -84,6 +84,15 @@ mod.plot_history(1000)
 fig.legend(labels=['full data training']);
 fig.savefig(args.output+'/train.history.pdf') 
 
+# Compute expected expression per cell type
+expected_dict = mod.module.model.compute_expected_per_cell_type(
+    mod.samples["post_sample_q05"], mod.adata_manager
+)
+
+# Add to anndata layers
+for i, n in enumerate(mod.factor_names_):
+    vis.layers[n] = expected_dict['mu'][i]
+
 
 # Save model
 mod.save(args.output+"/predmodel", overwrite=True)
