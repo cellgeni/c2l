@@ -77,6 +77,9 @@ print('Before filtering: cells = '+str(ref.shape[0])+"; genes = " + str(ref.shap
 ref = ref[:, selected].copy()
 print('After filtering: cells = '+str(ref.shape[0])+"; genes = " + str(ref.shape[1]))
 
+# remove slashes from celltype names
+ref.obs[args.labels_key] = ref.obs[args.labels_key].str.replace('/','_')
+
 # train
 cell2location.models.RegressionModel.setup_anndata(adata=ref,
                         # 10X reaction / sample / batch
