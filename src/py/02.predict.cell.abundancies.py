@@ -6,13 +6,13 @@ parser = argparse.ArgumentParser(description='Predict cell abundancies')
 parser.add_argument("visium", type=str,default=None,help='visium h5ad file')
 parser.add_argument("ref", type=str,default=None,help='reference signatures in csv format')
 parser.add_argument("output", type=str,default=None,help='folder to write output')
-parser.add_argument("--batch_key", type=str,default=None,help='column in adata.obs to be used as bacth')
+parser.add_argument("--batch_key", type=str,default=None,help='column in adata.obs to be used as batch')
 parser.add_argument("--detection_alpha", type=float,default=None,help='value of alpha parameter')
 parser.add_argument("--N_cells_per_location", type=int,default=None,help='value of alpha parameter')
 parser.add_argument("--max_epochs", type=int,default=50000,help='number of epochs')
 parser.add_argument("--batch_size", type=int,default=None,help='number of train batches (use with caution, non None values slows training and may produce weird results)')
 parser.add_argument("--do_not_filter_empty", action='store_true',help='by defauls all non tissue spots (adata.obs.in_tissue==0) will be removed. This flag switchs removal off.')
-
+parser.add_argument("--predict_gene_exp", action='store_true',help='Predict per celltype*spot gene expression. Be carefull, it results in extrmely large output h5ad.')
 
 import sys
 import os
@@ -74,24 +74,24 @@ mod.train(max_epochs=args.max_epochs,
           use_gpu=True,
           progress_bar_refresh_rate=0)
 
-# plot ELBO loss history during training, removing first 100 epochs from the plot
 vis = mod.export_posterior(
     vis, sample_kwargs={'num_samples': 1000, 'batch_size': mod.adata.n_obs, 'use_gpu': True}
 )
 
+# plot ELBO loss history during training, removing first 100 epochs from the plot
 fig, ax = plt.subplots()
 mod.plot_history(1000)
 fig.legend(labels=['full data training']);
 fig.savefig(args.output+'/train.history.pdf') 
 
-# Compute expected expression per cell type
-expected_dict = mod.module.model.compute_expected_per_cell_type(
-    mod.samples["post_sample_q05"], mod.adata_manager
-)
-
-# Add to anndata layers
-for i, n in enumerate(mod.factor_names_):
-    vis.layers[n] = expected_dict['mu'][i]
+if args.predict_gene_exp:
+    # Compute expected expression per cell type
+    expected_dict = mod.module.model.compute_expected_per_cell_type(
+        mod.samples["post_sample_q05"], mod.adata_manager
+    )
+    # Add to anndata layers
+    for i, n in enumerate(mod.factor_names_):
+        vis.layers[n] = expected_dict['mu'][i]
 
 
 # Save model
