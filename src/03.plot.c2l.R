@@ -1,4 +1,5 @@
 library(Seurat)
+library(schard)
 library(visutils)
 
 setwd(dirname(dirname(dirname(dirname(rstudioapi::getSourceEditorContext()$path)))))
@@ -7,7 +8,7 @@ getwd()
 
 # load data ########
 #sids = sub('.h5ad','',list.files(paste0('processed/',tic,'/vis/')))
-vs = myLoadH5AD_Spatials('viss.h5ad')
+vs = h5ad2seurat_l_spatial('viss.h5ad')
 names(vs)
 
 c2lnames=list.dirs(paste0('pred/'),recursive = F,full.names = F)
