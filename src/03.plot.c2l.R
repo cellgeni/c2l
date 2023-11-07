@@ -83,7 +83,7 @@ for(a in names(c2ls)){
     ctcols = ctcols[colnames(c2ls[[a]][[n]])]
     plotVisium(vs[[n]],vs[[n]]$nCount_Spatial,zfun = log1p,main=n,cex = scaleTo(log1p(vs[[n]]$nCount_Spatial)),legend.args = list(title='tUMI'),he.img.width=he.img.width)
     plotVisium(vsf[[n]],pie.fracs=c2ls[[a]][[n]],pie.cols=ctcols,pie.min.frac=0.01,main=a,cex = 1,plot.legend = F,he.img.width=he.img.width)
-    plotVisiumMultyColours(vsf[[n]],c2ls[[a]][[n]],cols = ctcols,mode = 'mean',zfun = function(x)x^2,he.img.width=he.img.width,scale.per.colour = T,legend.ncol=0,min.opacity = 250)
+    plotVisiumMultyColours(vsf[[n]],c2ls[[a]][[n]],cols = ctcols,zfun = function(x)x^2,he.img.width=he.img.width,scale.per.colour = T,legend.ncol=0,min.opacity = 250)
     if(i %% ncol == 0 | i == length(vs))
       legend(grconvertX(1,'nfc','user'),grconvertY(1,'ndc','user'),xpd=NA,fill=ctcols[cells.leg.order],border=NA,legend=cells.leg.order,ncol=2,bty='n')
     i = i + 1
@@ -103,7 +103,7 @@ for(a in names(c2ls)){
     ctcols = ctcols[colnames(c2ls[[a]][[n]])]
     plotVisium(vs[[n]],vs[[n]]$nCount_Spatial,zfun = log1p,main=n,cex = scaleTo(log1p(vs[[n]]$nCount_Spatial)),legend.args = list(title='tUMI'),he.img.width=he.img.width)
     plotVisium(vsf[[n]],pie.fracs=c2ls[[a]][[n]],pie.cols=ctcols,pie.min.frac=0.01,main=a,cex = 1,plot.legend = F,he.img.width=he.img.width)
-    plotVisiumMultyColours(vsf[[n]],c2ls[[a]][[n]],cols = ctcols,mode = 'mean',zfun = function(x)x^2,he.img.width=he.img.width,scale.per.colour = T,legend.ncol=0,min.opacity = 250)
+    plotVisiumMultyColours(vsf[[n]],c2ls[[a]][[n]],cols = ctcols,zfun = function(x)x^2,he.img.width=he.img.width,scale.per.colour = T,legend.ncol=0,min.opacity = 250)
     if(i %% ncol == 0 | i == length(vs)){
       legend(grconvertX(1,'nfc','user'),grconvertY(1,'ndc','user'),xpd=NA,fill=ctcols[cells.leg.order],border=NA,legend=cells.leg.order,ncol=2,bty='n')
       dev.off()
