@@ -8,7 +8,7 @@ getwd()
 
 # load data ########
 #sids = sub('.h5ad','',list.files(paste0('processed/',tic,'/vis/')))
-vs = h5ad2seurat_l_spatial('viss.h5ad')
+vs = h5ad2seurat_spatial('viss.h5ad',simplify = FALSE)
 names(vs)
 
 c2lnames=list.dirs(paste0('pred/'),recursive = F,full.names = F)
@@ -22,7 +22,7 @@ c2ls = lapply(c2lnames, function(a){
   r = split(r,m[,1])
   #r = split(r,substr(rownames(r),20,10000))
   for(i in 1:length(r)){
-    rownames(r[[i]]) = r[[i]]$barcode
+    #rownames(r[[i]]) = r[[i]]$barcode
     r[[i]]$barcode = NULL
     r[[i]] = as.matrix(r[[i]])
   }
@@ -35,9 +35,9 @@ c2ls[[1]][[1]][1:4,]
 vsf = list()
 for(n in names(vs)){
   print(n)
-  for(c in colnames(vs[[n]]@images$slice1@coordinates))
-    vs[[n]]@images$slice1@coordinates[,c] = as.numeric(vs[[n]]@images$slice1@coordinates[,c])
-  #vs[[n]]@images$slice1@image = enhanceImage(vs[[n]]@images$slice1@image,qs = c(0.02,0.98))
+  for(c in colnames(vs[[n]]@images[[1]]@coordinates))
+    vs[[n]]@images[[1]]@coordinates[,c] = as.numeric(vs[[n]]@images[[1]]@coordinates[,c])
+  #vs[[n]]@images[[1]]@image = enhanceImage(vs[[n]]@images[[1]]@image,qs = c(0.02,0.98))
   vsf[[n]] = vs[[n]][,rownames(c2ls[[1]][[n]])]
 }
 sapply(c2ls[[1]],dim)
@@ -150,9 +150,9 @@ for(a in names(c2ls)){
         png(paste0('figures/c2l.',fig.prefix,'by.celltype.',a,'.',10000+i,'.png'),w=ncol*3.5,h=nrow*3,units = 'in',res = 100)
         par(mfrow=c(nrow,ncol),mar=c(0.1,0.1,1.2,4),bty='n',oma=c(0,0,0,0))
       }
-      
+
       plotVisium(vsf[[sid]],c2ls[[a]][[sid]][,ct],zfun = log1p,cex = scaleTo(log1p(c2ls[[a]][[sid]][,ct])),main=paste0(sid,'; ',ct),he.img.width=he.img.width,he.grayscale=he.grayscale,img.alpha=img.alpha)
-      
+
       if(i %% (ncol*nrow) == 0 | i == (length(vs)*length(celltypes))){
         dev.off()
       }
