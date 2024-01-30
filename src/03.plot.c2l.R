@@ -8,26 +8,43 @@ getwd()
 
 # load data ########
 #sids = sub('.h5ad','',list.files(paste0('processed/',tic,'/vis/')))
-vs = h5ad2seurat_spatial('viss.h5ad',simplify = FALSE)
+vs = h5ad2seurat_spatial('viss.h5ad',simplify = FALSE,load.X = FALSE,load.obsm = FALSE)
 names(vs)
 
+# load results from h5ad
 c2lnames=list.dirs(paste0('pred/'),recursive = F,full.names = F)
 #c2lnames = c2lnames[grep('XXXXXX',c2lnames)]
-c2ls = lapply(c2lnames, function(a){
-  r = read.csv(paste0('pred/',a,'/predmodel/q05_cell_abundance_w_sf.csv'),row.names = 1,check.names = FALSE)
-  #rownames(r) = gsub('spaceranger130_count_39274_|_GRCh38-2020-A','',rownames(r))
+c2ls = lapply(c2lnames,function(n){
+  r = schard::h5ad2data.frame(paste0('pred/',n,'/predmodel/sp.h5ad'),'obsm/q05_cell_abundance_w_sf',keep.rownames.as.column = FALSE)
   colnames(r) = sub('q05cell_abundance_w_sf_','',colnames(r))
   m = do.call(rbind,strsplit(rownames(r),'|',T))
   r$barcode = m[,2]
   r = split(r,m[,1])
-  #r = split(r,substr(rownames(r),20,10000))
   for(i in 1:length(r)){
-    #rownames(r[[i]]) = r[[i]]$barcode
+    rownames(r[[i]]) = r[[i]]$barcode
     r[[i]]$barcode = NULL
     r[[i]] = as.matrix(r[[i]])
   }
   r
 })
+
+
+# or from csv
+# c2ls = lapply(c2lnames, function(a){
+#   r = read.csv(paste0('pred/',a,'/predmodel/q05_cell_abundance_w_sf.csv'),row.names = 1,check.names = FALSE)
+#   #rownames(r) = gsub('spaceranger130_count_39274_|_GRCh38-2020-A','',rownames(r))
+#   colnames(r) = sub('q05cell_abundance_w_sf_','',colnames(r))
+#   m = do.call(rbind,strsplit(rownames(r),'|',T))
+#   r$barcode = m[,2]
+#   r = split(r,m[,1])
+#   #r = split(r,substr(rownames(r),20,10000))
+#   for(i in 1:length(r)){
+#     #rownames(r[[i]]) = r[[i]]$barcode
+#     r[[i]]$barcode = NULL
+#     r[[i]] = as.matrix(r[[i]])
+#   }
+#   r
+# })
 names(c2ls) = c2lnames
 c2ls[[1]][[1]][1:4,]
 

@@ -46,7 +46,7 @@ print(args)
 print("cuda avaliable: "+str(torch.cuda.is_available()))
 
 # read data
-ref = sc.read(args.infile)
+ref = sc.read_h5ad(args.infile)
 
 
 mtcnt = np.sum([gene.startswith('MT-') for gene in ref.var.index])

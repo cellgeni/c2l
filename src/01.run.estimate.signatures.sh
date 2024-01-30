@@ -25,6 +25,8 @@
 
 
 WDIR=`pwd -P`
+# more recent version, probably doesnt work on farm5 due to outdated drivers, use on farm22
+#IMAGE=/nfs/cellgeni/singularity/images/c2l_v0.1.3p_240119.sif
 IMAGE=/nfs/cellgeni/singularity/images/c2l_v0.1.3.sif #or use c2l.jhub.221206.v0.1.sif which is based on commit 36e4f007e8fba4cb85c13b9bff47a4f6fbae9295
 c2lref=./actions/c2l/src/py/01.estimate.signatures.py
 

@@ -38,7 +38,7 @@ sys.stdout = open(args.output+"/c2l.pred.log", "w")
 print(args)
 print("cuda avaliable: "+str(torch.cuda.is_available()))
 
-vis = sc.read(args.visium)
+vis = sc.read_h5ad(args.visium)
 inf_aver = pd.read_csv(args.ref,index_col=0)
 
 
@@ -71,7 +71,9 @@ mod.view_anndata_setup()
 mod.train(max_epochs=args.max_epochs, 
           batch_size=args.batch_size,
           train_size=1,
-          use_gpu=True,
+          scale_elbo=1,
+          accelerator='gpu',
+          #use_gpu=True, this option is outdated
           progress_bar_refresh_rate=0)
 
 vis = mod.export_posterior(
