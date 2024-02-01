@@ -13,6 +13,7 @@ parser.add_argument("--max_epochs", type=int,default=50000,help='number of epoch
 parser.add_argument("--batch_size", type=int,default=None,help='number of train batches (use with caution, non None values slows training and may produce weird results)')
 parser.add_argument("--do_not_filter_empty", action='store_true',help='by defauls all non tissue spots (adata.obs.in_tissue==0) will be removed. This flag switchs removal off.')
 parser.add_argument("--predict_gene_exp", action='store_true',help='Predict per celltype*spot gene expression. Be carefull, it results in extrmely large output h5ad.')
+parser.add_argument("--seed", type=int,default=1,help='scvi seed value')
 
 import sys
 import os
@@ -37,6 +38,7 @@ os.mkdir(args.output)
 sys.stdout = open(args.output+"/c2l.pred.log", "w")
 print(args)
 print("cuda avaliable: "+str(torch.cuda.is_available()))
+scvi.settings.seed = args.seed
 
 vis = sc.read_h5ad(args.visium)
 inf_aver = pd.read_csv(args.ref,index_col=0)

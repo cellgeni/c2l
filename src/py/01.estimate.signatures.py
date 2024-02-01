@@ -15,6 +15,7 @@ parser.add_argument("--cell_percentage_cutoff2", type=float,default=0.03,help='G
 parser.add_argument("--nonz_mean_cutoff", type=float,default=1.12,help='Gene filtering parameter: genes detected in the number of cells between the above mentioned cutoffs are selected only when their average expression in non-zero cells is above this cutoff.')
 parser.add_argument("--max_epochs", type=int,default=250,help='max_epochs for training')
 parser.add_argument("--remove_genes_column", type=str,default=None,help='logical column in adata.var to be used to remove genes, for example mitochonrial. All genes with True in the column will be removed. None (defualt) mean to remove nothing.')
+parser.add_argument("--seed", type=int,default=1,help='scvi seed value')
 
 args = parser.parse_args()
 
@@ -44,6 +45,7 @@ os.mkdir(args.output)
 sys.stdout = open(args.output+"/c2l.ref.log", "w")
 print(args)
 print("cuda avaliable: "+str(torch.cuda.is_available()))
+scvi.settings.seed = args.seed
 
 # read data
 ref = sc.read_h5ad(args.infile)
