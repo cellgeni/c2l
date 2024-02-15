@@ -16,18 +16,12 @@
 ##BSUB -m dgx-b11
 ##BSUB -gpu "mode=shared:j_exclusive=no:gmem=62000:num=1"
 
-# uncomment (and edit paths) if you run it not as cellgeni-su
-#export SINGULARITY_CACHEDIR=/nfs/cellgeni/pasham/singularity/cache
-#export SINGULARITY_PULLFOLDER=/nfs/cellgeni/pasham/singularity
-#export SINGULARITY_TMPDIR=/nfs/cellgeni/pasham/singularity/tmp
-#export PATH=/software/singularity-v3.6.4/bin:$PATH
-
+export PATH=/software/singularity/3.11.4/bin:$PATH
 
 
 WDIR=`pwd -P`
 # more recent version, probably doesnt work on farm5 due to outdated drivers, use on farm22
-#IMAGE=/nfs/cellgeni/singularity/images/c2l_v0.1.3p_240119.sif
-IMAGE=/nfs/cellgeni/singularity/images/c2l_v0.1.3.sif #or use c2l.jhub.221206.v0.1.sif which is based on commit 36e4f007e8fba4cb85c13b9bff47a4f6fbae9295
+IMAGE=/nfs/cellgeni/singularity/images/c2l_v0.1.3p_240119.sif # or use one of /nfs/cellgeni/singularity/images/c2l_v0.1.3.sif;  c2l.jhub.221206.v0.1.sif which is based on commit 36e4f007e8fba4cb85c13b9bff47a4f6fbae9295
 c2lref=./actions/c2l/src/py/01.estimate.signatures.py
 
 # edit below

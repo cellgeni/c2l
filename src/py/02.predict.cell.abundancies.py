@@ -47,7 +47,7 @@ inf_aver = pd.read_csv(args.ref,index_col=0)
 intersect = np.intersect1d(vis.var_names, inf_aver.index)
 
 
-if not args.do_not_filter_empty & ('in_tissue' in vis.obs):
+if (not args.do_not_filter_empty) & ('in_tissue' in vis.obs):
     vis = vis[vis.obs.in_tissue.astype('str').astype('int')==1,]
 
 vis = vis[:, intersect].copy()
