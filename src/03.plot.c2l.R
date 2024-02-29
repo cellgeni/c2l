@@ -21,7 +21,7 @@ c2ls = lapply(c2lnames,function(n){
   r$barcode = m[,2]
   r = split(r,m[,1])
   for(i in 1:length(r)){
-    rownames(r[[i]]) = r[[i]]$barcode
+    #rownames(r[[i]]) = r[[i]]$barcode
     r[[i]]$barcode = NULL
     r[[i]] = as.matrix(r[[i]])
   }
@@ -64,7 +64,7 @@ sapply(vsf,dim)
 
 # plot tUMI ############
 he.img.width = 300
-fig.prefix = 'skull.'
+fig.prefix = ''
 
 pdf(paste0('figures/',fig.prefix,'tUMI.pdf'),w=4*3.5,h=2*3)
 par(mfrow=c(2,4),mar=c(0.1,0.1,1.2,6),bty='n',oma=c(0,0,0,0))
