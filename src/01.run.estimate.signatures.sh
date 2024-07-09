@@ -1,8 +1,8 @@
 #! /bin/bash -e
 #BSUB -G cellgeni
 #BSUB -J c2l.ref[1]
-#BSUB -o %J.%I.c2l.ref.log
-#BSUB -e %J.%I.c2l.ref.err
+#BSUB -o logs/%J.%I.c2l.ref.log
+#BSUB -e logs/%J.%I.c2l.ref.err
 #BSUB -n 2
 #BSUB -M64000
 #BSUB -R "span[hosts=1] select[mem>64000] rusage[mem=64000]"
@@ -21,7 +21,7 @@ export PATH=/software/singularity/3.11.4/bin:$PATH
 
 WDIR=`pwd -P`
 # more recent version, probably doesnt work on farm5 due to outdated drivers, use on farm22
-IMAGE=/nfs/cellgeni/singularity/images/c2l_v0.1.3p_240119.sif # or use one of /nfs/cellgeni/singularity/images/c2l_v0.1.3.sif;  c2l.jhub.221206.v0.1.sif which is based on commit 36e4f007e8fba4cb85c13b9bff47a4f6fbae9295
+IMAGE=/nfs/cellgeni/singularity/images/c2l_v0.1.3p_240701.sif #/nfs/cellgeni/singularity/images/c2l_v0.1.3p_240119.sif # or use one of /nfs/cellgeni/singularity/images/c2l_v0.1.3.sif;  c2l.jhub.221206.v0.1.sif which is based on commit 36e4f007e8fba4cb85c13b9bff47a4f6fbae9295
 c2lref=./actions/c2l/src/py/01.estimate.signatures.py
 
 # edit below
