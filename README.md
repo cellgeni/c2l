@@ -26,10 +26,23 @@ Set tic variable to ticket number and init:
 tic=.. 
 tick.sh -k $tic -j pm19@sanger.ac.uk -y https://github.com/cellgeni/c2l
 cd /lustre/scratch127/cellgen/cellgeni/tickets/tic-$tic
-mkdir ref pred figures
+mkdir ref pred figures logs
 ```
 ## Check and prepare the input
 Open `actions/c2l/src/check-n-prepare.input.h5ad.ipynb` in jupiter modify paths and follow the notebook. You should get one or more reference h5ad and visium h5ad files as an output.
+If visium data are provided as irods paths they can be downloaded by:
+```
+cd data
+mkdir vis
+cd vis
+../actions/c2l/src/iget_spaceranger.sh < samples.txt
+```
+Where samples.txt contains sample names and irods paths, one sample per line:
+```
+name1 /irods/path/1
+name2 /irods/path/2
+...
+```
 
 ## Signature estimation
 `actions/c2l/src/01.run.estimate.signatures.sh` submits the job to farm into gpu-normal queue. Edit the file according to the ticket: list all input reference h5ad files, specify batch, covariates and cell type annotation column of adata.obs. Internaly `01.run.estimate.signatures.sh` calls python script, so you can get detailed manual by `actions/c2l/src/py/01.estimate.signatures.py -h`. Edit file and then submit it by `bsub < actions/c2l/src/01.run.estimate.signatures.sh` from ticket directory. It runs array job, one item per reference.
