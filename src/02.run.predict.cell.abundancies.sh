@@ -9,7 +9,7 @@
 
 # for gpu-normal
 #BSUB -q gpu-normal
-#BSUB -gpu "mode=shared:j_exclusive=yes:gmem=32000:num=1"
+#BSUB -gpu "mode=shared:j_exclusive=yes:gmem=32000:num=1:gmodel=NVIDIAA100_SXM4_80GB"
 
 # for gpu-cellgeni-a100
 ##BSUB -q gpu-cellgeni-a100
