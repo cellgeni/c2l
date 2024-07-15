@@ -1,8 +1,8 @@
 #! /bin/bash -e
 #BSUB -G cellgeni
 #BSUB -J c2l.pred[1-2]
-#BSUB -o %J.%I.c2l.pred.log
-#BSUB -e %J.%I.c2l.pred.err
+#BSUB -o logs/%J.%I.c2l.pred.log
+#BSUB -e logs/%J.%I.c2l.pred.err
 #BSUB -n 2
 #BSUB -M64000
 #BSUB -R "span[hosts=1] select[mem>64000] rusage[mem=64000]"
