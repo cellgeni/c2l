@@ -9,6 +9,7 @@
 
 # for gpu-normal
 #BSUB -q gpu-normal
+# the image is compatible only with this gmodel
 #BSUB -gpu "mode=shared:j_exclusive=yes:gmem=32000:num=1:gmodel=NVIDIAA100_SXM4_80GB"
 
 # for gpu-cellgeni-a100
@@ -20,7 +21,8 @@ export PATH=/software/singularity/3.11.4/bin:$PATH
 
 
 WDIR=`pwd -P`
-# more recent version, probably doesnt work on farm5 due to outdated drivers, use on farm22
+
+#IMAGE=/nfs/cellgeni/singularity/images/c2l_v0.1.3p_240701.sif this one seems to be incompatible with our gpu nodes
 IMAGE=/nfs/cellgeni/singularity/images/c2l_v0.1.3p_240119.sif # or use one of /nfs/cellgeni/singularity/images/c2l_v0.1.3.sif;  c2l.jhub.221206.v0.1.sif which is based on commit 36e4f007e8fba4cb85c13b9bff47a4f6fbae9295
 
 c2lpred=./actions/c2l/src/py/02.predict.cell.abundancies.py
