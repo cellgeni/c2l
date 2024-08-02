@@ -81,11 +81,10 @@ mod.train(max_epochs=args.max_epochs,
           train_size=1,
           scale_elbo=1,
           accelerator='gpu',
-          #use_gpu=True, this option is outdated
           progress_bar_refresh_rate=0)
 
 vis = mod.export_posterior(
-    vis, sample_kwargs={'num_samples': 1000, 'batch_size': mod.adata.n_obs, 'use_gpu': True}
+    vis, sample_kwargs={'num_samples': 1000, 'batch_size': mod.adata.n_obs}
 )
 
 # plot ELBO loss history during training, removing first 100 epochs from the plot

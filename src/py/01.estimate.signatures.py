@@ -97,7 +97,7 @@ mod = RegressionModel(ref)
 
 mod.view_anndata_setup()
 
-mod.train(max_epochs=args.max_epochs,use_gpu=True,progress_bar_refresh_rate=0)
+mod.train(max_epochs=args.max_epochs,progress_bar_refresh_rate=0)
 
 # plot ELBO loss history during training, removing first 20 epochs from the plot
 fig, ax = plt.subplots()
@@ -105,7 +105,7 @@ mod.plot_history(20)
 plt.savefig(args.output+'/train.history.pdf')
 
 ref = mod.export_posterior(
-    ref, sample_kwargs={'num_samples': 1000, 'batch_size': 2500, 'use_gpu': True}
+    ref, sample_kwargs={'num_samples': 1000, 'batch_size': 2500}
 )
 mod.save(args.output+"/rsignatures", overwrite=True)
 # most likely I do not need this file
