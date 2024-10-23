@@ -10,7 +10,7 @@
 # for gpu-normal
 #BSUB -q gpu-normal
 # the image is compatible only with this gmodel
-#BSUB -gpu "mode=shared:j_exclusive=yes:gmem=32000:num=1:gmodel=NVIDIAA100_SXM4_80GB"
+#BSUB -gpu "mode=shared:j_exclusive=yes:gmem=32000:num=1"
 
 # for gpu-cellgeni-a100
 ##BSUB -q gpu-cellgeni-a100
