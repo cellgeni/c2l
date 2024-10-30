@@ -20,12 +20,13 @@ ENV PATH="${VENV_PATH}/bin:$PATH"
 
 RUN python -m venv "${VENV_PATH}"
 
-RUN pip install scvi-tools
-RUN pip install jupyterlab papermill
+RUN . "${VENV_PATH}/bin/activate" && \
+ pip install scvi-tools jupyterlab papermill
 
 # install cell2location 
 COPY . cell2location
-RUN pip install -e /cell2location
+RUN . "${VENV_PATH}/bin/activate" && \
+ pip install -e /cell2location
 
 COPY Dockerfile /docker/
 RUN chmod -R 755 /docker
