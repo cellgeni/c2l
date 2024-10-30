@@ -47,7 +47,7 @@ if (inf_aver.index.value_counts()>1).sum() > 0:
   raise Exception("Reference gene names are not unique, please fix it in '"+args.ref+"'") 
 
 if (vis.var_names.value_counts()>1).sum() > 0:
-  raise Exception("Spatial gene names are not unique, please fix it in '"+args.ref+"'") 
+  raise Exception("Spatial gene names are not unique, please fix it in '"+args.visium+"'") 
 
 
 intersect = np.intersect1d(vis.var_names, inf_aver.index)

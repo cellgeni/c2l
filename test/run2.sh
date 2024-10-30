@@ -1,5 +1,5 @@
 #! /bin/bash -e
-IMAGE=/nfs/cellgeni/singularity/images/c2l_v0.1.3p_240701.sif
+IMAGE=/nfs/cellgeni/singularity/images/c2l_v014.sif #/nfs/cellgeni/singularity/images/c2l_v0.1.3p_240701.sif
 c2lpred=../src/py/02.predict.cell.abundancies.py
 
 OUT=pred/$1

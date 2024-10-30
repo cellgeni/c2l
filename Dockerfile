@@ -11,43 +11,23 @@ RUN apt-get update \
         wget \
         ca-certificates \
         git \
+	python3 python3-dev python3-venv python-is-python3 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# see http://bugs.python.org/issue19846
-ENV LANG C.UTF-8
+ENV VENV_PATH="/env"
+ENV PATH="${VENV_PATH}/bin:$PATH"
 
-# install miniconda3 - https://docs.conda.io/projects/continuumio-conda/en/latest/user-guide/install/index.html
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh \
-    && /bin/bash /tmp/miniconda.sh -b -p /opt/conda \
-    && rm /tmp/miniconda.sh
-RUN /opt/conda/condabin/conda init bash
+RUN python -m venv "${VENV_PATH}"
 
-# create conda environment yaml file
-COPY environment.yml /tmp/
-RUN /opt/conda/condabin/conda env create -f /tmp/environment.yml \
-    && echo "source activate cell2loc_env" >> ~/.bashrc \
-    && /opt/conda/condabin/conda clean --all --yes --quiet
-ENV PATH /opt/conda/envs/cell2loc_env/bin:/opt/conda/bin:$PATH
+RUN pip install scvi-tools
+RUN pip install jupyterlab papermill
+RUN pip install scvi-tools
+
 
 # install cell2location 
 COPY . cell2location
+RUN pip install -e /cell2location
 
-RUN /bin/bash -c 'pip install -U "jax[cuda12]"'
-RUN /bin/bash -c "pip install -e /cell2location"
-
-# add cell2loc_env kernel for jupyter environment 
-RUN /bin/bash -c "python -m ipykernel install --prefix=/opt/conda/envs/cell2loc_env/ --name=cell2loc_env --display-name='Container (cell2loc_env)'" 
-
-# copy notebooks to the image
-COPY docs/notebooks notebooks
-RUN /bin/bash -c "jupyter trust /notebooks/*.ipynb";
-
-# launch jupyter
-CMD ["jupyter", "notebook", \
-    "--notebook-dir=/notebooks", \
-    "--NotebookApp.token='cell2loc'", \
-    "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
-
-COPY Dockerfile /
-EXPOSE 8888
+COPY Dockerfile /docker/
+RUN chmod -R 755 /docker

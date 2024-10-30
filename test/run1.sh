@@ -1,5 +1,5 @@
 #! /bin/bash -e
-IMAGE=/nfs/cellgeni/singularity/images/c2l_v0.1.3p_240701.sif
+IMAGE=/nfs/cellgeni/singularity/images/c2l_v014.sif #/nfs/cellgeni/singularity/images/c2l_v0.1.3p_240701.sif
 c2lref=../src/py/01.estimate.signatures.py
 
 REFOUT=ref/$1
