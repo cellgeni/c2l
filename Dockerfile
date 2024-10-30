@@ -22,8 +22,6 @@ RUN python -m venv "${VENV_PATH}"
 
 RUN pip install scvi-tools
 RUN pip install jupyterlab papermill
-RUN pip install scvi-tools
-
 
 # install cell2location 
 COPY . cell2location
