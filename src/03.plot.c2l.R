@@ -69,7 +69,7 @@ fig.prefix = ''
 pdf(paste0('figures/',fig.prefix,'tUMI.pdf'),w=4*3.5,h=2*3)
 par(mfrow=c(2,4),mar=c(0.1,0.1,1.2,6),bty='n',oma=c(0,0,0,0))
 for(n in names(vs)){
-  plotVisium(vs[[n]],vs[[n]]$nCount_Spatial,zfun = log1p,main=n,cex = scaleTo(log1p(vs[[n]]$nCount_Spatial)),legend.args = list(title='tUMI'),he.img.width=he.img.width)
+  plotVisium(vs[[n]],vs[[n]]$total_counts,zfun = log1p,main=n,cex = scaleTo(log1p(vs[[n]]$total_counts)),legend.args = list(title='tUMI'),he.img.width=he.img.width)
 }
 dev.off()
 
@@ -98,7 +98,7 @@ for(a in names(c2ls)){
   i = 1
   for(n in names(vs)){
     ctcols = ctcols[colnames(c2ls[[a]][[n]])]
-    plotVisium(vs[[n]],vs[[n]]$nCount_Spatial,zfun = log1p,main=n,cex = scaleTo(log1p(vs[[n]]$nCount_Spatial)),legend.args = list(title='tUMI'),he.img.width=he.img.width)
+    plotVisium(vs[[n]],vs[[n]]$total_counts,zfun = log1p,main=n,cex = scaleTo(log1p(vs[[n]]$total_counts)),legend.args = list(title='tUMI'),he.img.width=he.img.width)
     plotVisium(vsf[[n]],pie.fracs=c2ls[[a]][[n]],pie.cols=ctcols,pie.min.frac=0.01,main=a,cex = 1,plot.legend = F,he.img.width=he.img.width)
     plotVisiumMultyColours(vsf[[n]],c2ls[[a]][[n]],cols = ctcols,zfun = function(x)x^2,he.img.width=he.img.width,scale.per.colour = T,legend.ncol=0,min.opacity = 250)
     if(i %% ncol == 0 | i == length(vs))
@@ -118,7 +118,7 @@ for(a in names(c2ls)){
       par(mfcol=c(3,ncol),mar=c(0.1,0.1,1.2,4),bty='n',oma=c(0,0,0,omar))
     }
     ctcols = ctcols[colnames(c2ls[[a]][[n]])]
-    plotVisium(vs[[n]],vs[[n]]$nCount_Spatial,zfun = log1p,main=n,cex = scaleTo(log1p(vs[[n]]$nCount_Spatial)),legend.args = list(title='tUMI'),he.img.width=he.img.width)
+    plotVisium(vs[[n]],vs[[n]]$total_counts,zfun = log1p,main=n,cex = scaleTo(log1p(vs[[n]]$total_counts)),legend.args = list(title='tUMI'),he.img.width=he.img.width)
     plotVisium(vsf[[n]],pie.fracs=c2ls[[a]][[n]],pie.cols=ctcols,pie.min.frac=0.01,main=a,cex = 1,plot.legend = F,he.img.width=he.img.width)
     plotVisiumMultyColours(vsf[[n]],c2ls[[a]][[n]],cols = ctcols,zfun = function(x)x^2,he.img.width=he.img.width,scale.per.colour = T,legend.ncol=0,min.opacity = 250)
     if(i %% ncol == 0 | i == length(vs)){
